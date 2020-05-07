@@ -63,6 +63,11 @@ a{
   color:black;
 }
 
+.sair{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
 
 #logo {
     width: 120px;
@@ -197,6 +202,41 @@ a{
 }
 .register.card{
     padding: 20px;
+}
+
+.card-public-input{
+  width: 400px;
+  height: 40px;
+}
+
+.form-posts{
+  max-width: 470px;
+  display: flex;
+  margin: 20px;
+  flex-direction: column;
+  border: 1px solid #d7d7d7;
+  border-radius: 4px;
+}
+
+.form-posts input{
+border: none;
+width: 100%;
+}
+
+.form-posts input:focus,  .form-comments .input:active{
+border: none;
+box-shadow: none;
+outline: 0;
+}
+
+
+.form-posts button{
+  transition-duration: 0.4s;
+}
+
+.form-posts button:hover {
+  background-color: lightseagreen;
+  color: white;
 }
 
 @media(max-width:560px){

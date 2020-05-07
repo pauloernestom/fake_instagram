@@ -7,15 +7,6 @@ const AuthController = {
         res.render('auth/login');
     },
 
-    showRegistro: (req,res) => {
-        res.render('auth/register');
-    },
-
-    showHome: (req,res) => {
-        console.log(req.session.usuario);
-        res.render('index');
-    },
-
     login: async (req,res) =>{
         // Lendo as info do body
         const { email, senha } = req.body;
@@ -40,6 +31,10 @@ const AuthController = {
         //Redirecionar o usuario para a rota home
         res.redirect('/home')
 
+    },
+    logout:(req,res) => {
+        req.session.destroy();
+        res.redirect('/login')
     }
 
 

@@ -23,76 +23,104 @@
           <a href="">
             <div class="avatar-content">
               <img class="avatar" src="/img/avatar-example.png">
-              <b>nati.carolira</b>
+              <b><%= user.nome %></b>
+            </div>
+          </a>
+          <a href="/logout">
+            <div class="avatar-content">
+              <img class="avatar" src="/img/icons/signs.svg">
+  
             </div>
           </a>
         </nav>
       </div>
     </header>
     <main class="container content">
+
       <div class="card">
         <div class="card-header">
           <div>
             <img class="avatar" src="/img/avatar-example.png">
-            <b>nati.carolira</b>
+            <b><%=user.nome %></b>
           </div>
-            <img src="/img/icons/more-vertical.svg">
-        </div>
-        <div class="card-img">
-          <img src="/img/publication_example.jpg">
+          <img src="/img/icons/more-vertical.svg">
         </div>
         <div class="card-body">
-          <div class="card-itens">
-            <div class="likes">
-              <img src="/img/icons/heart.svg">
-              <b>35 likes</b>
-            </div>
-            <b>Postado no dia: 16/04/2020</b>
-          </div>
-          <div class="card-comments">
-            <p><b>ovinnyoliveira</b> Mano que incrivel</p>
-            <p><b>front.hendy</b></p>
-            <p><b>verofefo</b> aff.. </p>
-          </div>
-         
+                         
         </div>
-        <form class="form-comments" action="">
-          <input type="text" placeholder="Adicione um comentário...">
-          <button>Publicar</button>
+        <form class="form-posts" action="/posts" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="usuarios_id" value="<%=user.id %>">
+          <div class="row">
+            <div class="card-public-input">
+              <input type="file" name="files">
+            </div>
+            <br>
+            <div class="card-public-input">
+              <input type="text" placeholder="Novo post..." name="texto">
+              
+            </div>
+          </div>
+          <div class="div-button-post">
+            <button type="submit">Publicar</button>
+          </div>
         </form>
+
       </div>
-      
+
+      <% for(post of posts) { %>
       <div class="card">
+        
         <div class="card-header">
           <div>
             <img class="avatar" src="/img/avatar-example.png">
-            <b>nati.carolira</b>
+            <b><%= post.usuario.nome %></b>
           </div>
             <img src="/img/icons/more-vertical.svg">
         </div>
         <div class="card-img">
-          <img src="/img/publication_example.jpg">
+          <img src="<%= post.img %>">
         </div>
         <div class="card-body">
+          <div class="card-comments">
+            <p><b><%= post.usuario.nome %></b> <%= post.texto %></p>
+          </div>
           <div class="card-itens">
             <div class="likes">
-              <img src="/img/icons/heart.svg">
-              <b>35 likes</b>
+              <form action="/curtir" method="post">
+                <input type="hidden" name="id" value="<%=post.id %>">
+                <button >
+                  <img src="/img/icons/heart.svg">
+                </button>
+              </form>
+              <b><%= post.n_likes %> likes</b>
             </div>
+            
             <b>Postado no dia: 16/04/2020</b>
+            
           </div>
+          
           <div class="card-comments">
-            <p><b>ovinnyoliveira</b> Mano que incrivel</p>
-            <p><b>front.hendy</b> <3 </p>
-            <p><b>verofefo</b> aff.. </p>
+
+            <% for(comentario of post.comentarios) { %>
+
+              
+              <p><b><%= comentario.usuario.nome %></b> <%= comentario.texto %></p>
+              
+
+              <% } %>
           </div>
          
         </div>
-        <form class="form-comments" action="">
-          <input type="text" placeholder="Adicione um comentário...">
-          <button>Publicar</button>
+        <form class="form-comments" action="/comentarios" method="POST">
+          <input type="hidden" name="posts_id" value="<%=post.id %>">
+          <input type="hidden" name="usuarios_id" value="<%=user.id %>">
+          <input type="text" placeholder="Adicione um comentário..." name="texto">
+          <button type="submit" >Comentar</button>
+        </form>
         </form>
       </div>
+      <% } %>
+    
     </main>
   </body>
 </html>
